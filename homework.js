@@ -16,8 +16,8 @@
 // Решение
 // let i = 0;
 // while (i < 3) {
-// 	i++;
 // 	console.log( `number ${i}!` );
+//	i++;
 // }
 	
 
@@ -28,41 +28,38 @@
 // 		Сейчас в функцию ask передаются анонимные каллбек функции, дайте им имена и передавайте как каллбек через переменную описания.
 
 
-// // Решение первое Function Expression
-// let ask = function(answer) {
-//   console.log("Вы согласны?");
-//   if (answer === "yes") 
-//   	console.log("Вы согласились.");
-//   else 
-//   	console.log("Вы отказались.");
-//   return answer
-// }
+// // Function Expression
+// const ask = function(question, answer, yes, no) {
+//   question();
+//   if (answer) yes()
+//   else no();
+// };
 
-// ask ("no")
-
-
-// Решение второе Стрелочная функция
-let ask = (answer) => {
-  console.log("Вы согласны?");
-  if ((answer === "yes") || (answer === "Yes")){
-  	console.log("Вы согласились.");
-  }
-  else {
-  	console.log("Вы отказались.");
-  }
-}
-
-ask ("Yes")
+// ask(
+//   function() { console.log('Вы согласны?'); },
+//   false,
+//   function() { console.log('Вы согласились'); },
+//   function() { console.log('Вы отказались'); },
+//   );
 
 
-// // Решение третье
-// function question() { console.log("Вы согласны?"); }
-// function answerYes() { console.log("Вы согласились."); }
-// function answerNo() { console.log("Вы отказались."); }
 
-// let ask = function (answer) {
-// 	question()
-// 	answer()
-// }
+// // Стрелочная функция + каллбек через переменную
 
-// ask (answerNo);
+const ask = (question, answer, yes, no) => {
+  question();
+  if (answer()) yes()
+  else no();
+};
+
+
+const askConsole = () => console.log("Вы согласны?");
+const yesConsole = () => console.log("Вы согласились");
+const noConsole = () => console.log("Вы отказались");
+const answer = () => false;
+  ask(
+    askConsole,
+    answer,
+    yesConsole,
+    noConsole,
+  );
